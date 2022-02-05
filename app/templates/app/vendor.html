@@ -1,0 +1,57 @@
+{% extends 'app/bases.html' %}
+{% load static %}
+{% block title %}Online Shopping in Nepal| Best Deals, Price & Discount{% endblock title %}
+
+{% block main-contents %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 my-2">
+            <h4 class="big-text">Grow Your  Business</h4>
+             <p>Learn More python Learn More python</p>
+            
+            <a class="btn btn-first" href="{% url 'loginn'%}">Login</a>
+            <a class="btn btn-Second" href="{% url 'registers'%}">Register</a>
+
+
+
+
+        </div>
+        <div class="col-sm-6">
+            <img src="{%static 'app/img/s.png'%}" alt="">
+
+            
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+.big-text{
+    font-size:52px;
+    margin:10px 0;
+    color: darkorange;
+}
+
+a.btn{
+    margin: 30px;
+    width: 150px;
+    padding: 10px;
+    border-radius: 20px;
+
+}
+
+a.btn-first{
+    background-color:darkorange;
+    color:#fff;
+}
+
+a.btn-Second{
+    background-color:transparent;
+    border: 1px solid darkorange;
+    color:#333;
+}
+</style>
+
+
+{% endblock main-contents %}

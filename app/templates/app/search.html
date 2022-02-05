@@ -1,0 +1,31 @@
+{% extends 'app/bases.html' %}
+{% load static %}
+{% block title %}Online Shopping in Nepal| Best Deals, Price & Discount{% endblock title %}
+
+{% block main-contents %}
+<div class="container">
+    <div class="row my-5">
+        <div class="col-md-12">
+            <h3>Search Results for <span class="text-info">"{{request.GET.keyword}}"</span></h3>
+            <hr>
+            {% for result in results %}
+            <div class="row my-3">
+                <div class="col-md-3">
+                    <img src="{{result.image.url}}" class="img-fluid" alt="">
+                </div>
+                <div class="col-md-9">
+                    <h4><a href="{% url 'product-detail' result.id %}">{{result.title}}</a></h4>
+                    <p>{{result.description|truncatewords:50}}</p>
+                    <p>Return Policy: {{result.return_policy}}</p>
+                    <a href="{% url 'product-detail' result.id %}" class="btn btn-primary">Back to Home </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+    
+
+{% endblock main-contents %}

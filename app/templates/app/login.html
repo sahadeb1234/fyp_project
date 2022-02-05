@@ -1,0 +1,47 @@
+{% extends 'app/bases.html' %}
+{% load static %}
+{% block title %}Customer Login{% endblock title %}
+
+{% block main-contents %}
+
+
+<style>
+  .errorlist {
+      color: red;
+  }
+</style>
+<div class="container">
+  <div class="row my-3">
+      <div class="col-sm-6 offset-sm-3">
+          <h3>Login</h3>
+          <hr>
+          <form action="" method="POST" class="shadow p-5">
+            {% csrf_token %}
+              {{form.as_p}}
+              <button class="btn btn-primary">Login as a Customer</button>
+              {% if error %}
+              <li style="color: red;">{{error}}</li>
+              {% endif %}
+          </form>
+          <br>
+          <div class ="text-center text-primary fw-bold"><small> Forgot Password? <a href="{% url 'passworforgot' %}" class="text-danger">Reset now</a></small></div>
+          {% comment %} <p>Forgot Password?<a href="#">Reset now.</a></p> {% endcomment %}
+          {% comment %} <p> or dont have account? <a href="{% url 'customerregistration' %}{% if request.GET.next %}?next={{request.GET.next}}{% endif %}">Register here</a></p> {% endcomment %}
+          <div class ="text-center text-primary fw-bold"><small> Not to Shopmandu? <a href="{% url 'customerregistration' %}{% if request.GET.next %}?next={{request.GET.next}}{% endif %}" class="text-danger">Create an Account</a></small></div>
+
+
+        </form>
+       </div>
+      </div>
+     </div>
+     
+     
+  
+     
+      </div>
+  </div>
+</div>
+
+
+
+{% endblock main-contents %}

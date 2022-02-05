@@ -1,0 +1,29 @@
+{% extends 'app/bases.html' %}
+{% load static %}
+{% block title %}Customer Register{% endblock title %}
+
+{% block main-contents %}
+
+<style>
+    .errorlist{
+        color: red;
+    }
+</style>
+<div class="container">
+    <div class="row my-3">
+        <div class="col-sm-6 offset-sm-3">
+            <h3>Customer Registration</h3><hr>
+            <form action="" method="POST" class="shadow p-5">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button class="btn btn-primary">Register</button>
+            </form>
+            {% comment %} <p> Already have an account? <a href="{% url 'customerlogin' %}">Login here</a></p> {% endcomment %}
+            <br>
+            <div class ="text-center text-primary fw-bold"><small> Existing User? <a href="{% url 'customerlogin' %}" class="text-danger">Login Now</a></small></div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock main-contents %}

@@ -1,0 +1,35 @@
+{% extends 'app/bases.html' %}
+{% load static %}
+{% block title %}Change Password{% endblock title %}
+
+{% block main-contents %}
+
+ 
+
+<div class="container">
+ <div class="row my-3">
+  <div class="col-sm-6 offset-sm-3">
+   <h3>Change Password</h3>
+   <hr>
+   <form action="" method="post" novalidate class="shadow p-5">
+    {% csrf_token %}
+{% if form.non_field_errors %}
+{% for error in form.non_field_errors%}
+{{error}}
+{% endfor %}
+
+{% endif %}
+
+ {% for form in form  %}
+ {{form.label_tag}} {{form}} {{form.errors|striptags}} <br><br>
+ 
+ {% endfor %}
+  <input type="Submit" value="Save">
+   
+   </form>
+  </div>
+ </div>
+</div>
+ </form>
+
+{% endblock main-contents %}

@@ -1,0 +1,159 @@
+{% extends 'app/bases.html' %}
+{% load static %}
+{% block title %}Online Shopping in Nepal| Best Deals, Price & Discount{% endblock title %}
+
+{% block main-contents %}
+
+	
+	 <section class="slider-section pt-4 pb-4">
+        <div class="container">
+            <div class="slider-inner">
+                <div class="row">
+
+            
+                    <div class="col-md-3">
+                        <nav class="nav-category">
+                            <h2>Categories</h2>
+                                {%for p in category  %}
+                            <ul class="menu-category">
+                                <li><a href="/?category={{p.id}}">{{p.title }}</a></li>
+                                {%endfor%}
+                               
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-md-9">
+                        <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner shadow-sm rounded">
+                                <div class="carousel-item active">
+                                    <img class="d-block w-100" src="{%static 'app//img/slides/slide1.jpg'%}" alt="First slide">
+                                    <div class="carousel-caption d-none d-md-block">
+                                      
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="{%static 'app/img/slides/slide2.jpg'%}" alt="Second slide">
+                                    <div class="carousel-caption d-none d-md-block">
+                                       
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="{%static 'app/img/slides/slide3.jpg'%}" alt="Third slide">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Slider -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+	<section class="pt-5 pb-5">
+        <div class="container">
+            <div class="row">
+
+
+                <div class="col-md-4">
+                    <div class="media">
+                        <div class="iconbox iconmedium rounded-circle text-info mr-4">
+                            <i class="fa fa-truck"></i>
+                        </div>
+                        <div class="media-body">
+                            <h5>Fast Shipping</h5>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="media">
+                        <div class="iconbox iconmedium rounded-circle text-purple mr-4">
+                            <i class="fa fa-credit-card-alt"></i>
+                        </div>
+                        <div class="media-body">
+                            <h5>Online Payment</h5>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="media">
+                        <div class="iconbox iconmedium rounded-circle text-warning mr-4">
+                            <i class="fa fa-refresh"></i>
+                        </div>
+                        <div class="media-body">
+                            <h5>Free Return</h5>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+	    <section class="products-grids trending pb-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                       
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4 ">     
+				{% for p in product %}
+                <div class="col-xl-3 col-lg-4 col-md-4 col-12  my-2">
+                    <div class="single-product">
+                        <div class="product-img">
+                            <a href="{% url 'product-detail' p.id %}">
+                                <img src="{{p.image.url}}" class="img-fluid" />
+                            </a>
+                        </div>
+                        <div class="product-content text-center">
+                            <h3 class=""><a href="{% url 'product-detail' p.id %}">{{p.title}}</a></h3>
+                            <div class="product-price">
+                                {% comment %} <span>Rs. {{p.selling_price }}</span> {% endcomment %}
+                                <P><strike> Rs. {{p.marked_price }}   </strike>   Rs. {{p.selling_price}}</P>
+                                <a href="{% url 'product-detail' p.id %}" class="btn btn-primary pull-center">Detail</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                	{% endfor %}
+			
+            </div>
+            
+<div class="pagination my-4">
+        {% if product.has_previous %}
+            <a href="?page=1"></a>
+            <a href="?page={{product.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ product.number }} of {{ product.paginator.num_pages }}.
+        </span>
+
+        {% if product.has_next %}
+            <a href="?page={{ product.next_page_number }}">Next </a>
+            <a href="?page={{ product.paginator.num_pages }}"> &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+       
+        </div>
+    </section>
+    
+
+{% endblock main-contents %}
