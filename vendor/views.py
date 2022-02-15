@@ -8,7 +8,12 @@ from django.contrib.auth.models import User
 import random
 from .models import PreRegistration
 from .forms import VerifyForm,LoginForm
+from .forms import  productaddForm
 from django.contrib.auth import login,logout,authenticate
+from app.models import Product
+from app.models import Category
+from django.shortcuts import redirect
+from .forms import *
 # Create your views here.
 
 def creatingOTP():
@@ -101,11 +106,8 @@ def verifyUser(request):
     else:
         return HttpResponseRedirect('/success/')
 
-def success(request):
-    if request.user.is_authenticated:
-        return render(request,'app/vendor/success.html')
-    else:
-        return HttpResponseRedirect('/')
+
+   
 
 def logout_function(request):
     if request.user.is_authenticated:
@@ -113,3 +115,38 @@ def logout_function(request):
         return HttpResponseRedirect('/')
     else:
         return HttpResponseRedirect('/')
+
+
+def success(request):
+     
+        return render(request,'app/vendor/success.html')
+
+
+
+ 
+def addshow(request):
+    if request.method == 'POST':
+
+        fm = productaddForm(request.POST, request.FILES)
+        if fm.is_valid():
+             
+        #  te =fm.cleaned_data['title']
+        #  sg =fm.cleaned_data['slug']
+        #  cy =fm.cleaned_data['category']
+        #  ie =fm.cleaned_data['image']
+        #  mk =fm.cleaned_data['marked_price']
+        #  sp =fm.cleaned_data['selling_price']
+        #  de =fm.cleaned_data['description']
+        #  fd =fm.cleaned_data['full_description']
+        #  w =fm.cleaned_data['warranty']
+        #  rp =fm.cleaned_data['return_policy']
+        #  v =fm.cleaned_data['view_count']
+        #  reg = Product(title=te,slug=sg,category=cy, image=ie,marked_price=mk, selling_price=sp,description=de, full_description=fd,warranty=w,return_policy=rp,view_count=v)
+         fm.save()
+    else:
+        fm = productaddForm()
+        ecom = Product.objects.all()
+   
+    return render(request, 'app/vendor/add.html', {'form':fm, 'ecom':ecom})
+
+
