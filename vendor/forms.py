@@ -4,8 +4,10 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,UsernameField
 from django.contrib.auth.models import User
 from django.core import validators
+from matplotlib import widgets
 from app.models import Product
 from app.models import Category
+
 def validete_username(value):
     if len(value)<=2:
         raise forms.ValidationError(f"Your username cannot be of {len(value)}  word")
@@ -37,7 +39,7 @@ class productaddForm(forms.ModelForm):
         widgets = {
              'title': forms.TextInput(attrs={'class':'form-control'}),
              'slug': forms.TextInput(attrs={'class':'form-control'}),
-             'category': forms.TextInput(attrs={'class':'form-control'}),
+            
             'image': forms.FileInput(attrs={'required': False,'class': 'form-control','enctype': 'multipart/form-data'}),
             'marked_price': forms.NumberInput(attrs={'class': 'form-control'}),
             'selling_price': forms.NumberInput(attrs={'class': 'form-control'}),
@@ -45,14 +47,20 @@ class productaddForm(forms.ModelForm):
             'full_description': forms.TextInput(attrs={'class':'form-control'}),
             'warranty': forms.TextInput(attrs={'class':'form-control'}),
             'return_policy': forms.TextInput(attrs={'class':'form-control'}),
-            'view_count': forms.NumberInput(attrs={'class':'form-control'}),
-
-
-           
-
-           
+            'view_count': forms.NumberInput(attrs={'class':'form-control'}),   
 
           
+        }
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['title', 'slug']
+        widgets ={
+             'title': forms.TextInput(attrs={'class':'form-control'}),
+              'slug': forms.TextInput(attrs={'class':'form-control'}),
+
+
         }
 
 

@@ -1,6 +1,9 @@
+
+from unicodedata import category
 from django.contrib import messages
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from numpy import delete
 from . forms import CreateUser
 from django.core.mail import send_mail
 from django.conf import settings
@@ -14,6 +17,7 @@ from app.models import Product
 from app.models import Category
 from django.shortcuts import redirect
 from .forms import *
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def creatingOTP():
@@ -118,12 +122,19 @@ def logout_function(request):
 
 
 def success(request):
-     
+    #  if request.method == 'POST':
+
+    #     fm = productaddForm(request.POST, request.FILES)
+    #     if fm.is_valid():
+    #      fm.save()
+    #     else:
+    #         fm = productaddForm()
+    #     ecom = Product.objects.all()
         return render(request,'app/vendor/success.html')
 
 
 
- 
+@login_required
 def addshow(request):
     if request.method == 'POST':
 
@@ -145,8 +156,43 @@ def addshow(request):
          fm.save()
     else:
         fm = productaddForm()
-        ecom = Product.objects.all()
+        # ecom = Product.objects.all()
    
-    return render(request, 'app/vendor/add.html', {'form':fm, 'ecom':ecom})
+    return render(request, 'app/vendor/add.html', {'form':fm})
+
+@login_required
+def Categ(request):
+     if request.method == 'POST':
+          cat = CategoryForm(request.POST, request.FILES)
+          if cat.is_valid():
+              cat.save()
+     else:
+         cat = CategoryForm()
+     stu = Category.objects.all()
+     return render(request, 'app/vendor/Category.html', {'form':cat, 'stud':stu})
+
+def delete_data(request, id):
+    if request.method =='POST':
+        Pi = Category.objects.get(pk=id)
+        Pi.delete()
+        return HttpResponseRedirect('/Category/')
+
+def update(request, id):
+    if request.method == 'POST':
+        pi = Category.objects.get(pk=id)
+        fm = CategoryForm(request.POST, instance=pi)
+        if fm.is_valid():
+         fm.save()
+    else:
+        pi = Category.objects.get(pk=id)
+        fm = CategoryForm(instance=pi)
+    return render(request, 'app/vendor/updatecategory.html', {'form':fm})
+
+
+
+        
+ 
+
+             
 
 
