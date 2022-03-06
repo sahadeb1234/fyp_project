@@ -120,12 +120,19 @@
                                 <img src="{{p.image.url}}" class="img-fluid" />
                             </a>
                         </div>
+                       
                         <div class="product-content text-center">
                             <h3 class=""><a href="{% url 'product-detail' p.id %}">{{p.title}}</a></h3>
                             <div class="product-price">
+                                
                                 {% comment %} <span>Rs. {{p.selling_price }}</span> {% endcomment %}
                                 <P><strike> Rs. {{p.marked_price }}   </strike>   Rs. {{p.selling_price}}</P>
+                               
                                 <a href="{% url 'product-detail' p.id %}" class="btn btn-primary pull-center">Detail</a>
+                               
+                               
+                             
+                            
                             </div>
                         </div>
                     </div>

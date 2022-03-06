@@ -1,7 +1,7 @@
 {% extends 'app/vendor/core.html' %}
 {% block content %}
 
- 
+
 
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
@@ -52,7 +52,7 @@
                     <div class="col-md-3">
                         <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
-                                <h3 class="fs-2">720</h3>
+                                <h3 class="fs-2">{{products}}</h3>
                                 <p class="fs-5">Products</p>
                             </div>
                             <i class="fas fa-gift fs-1 primary-text border rounded-full secondary-bg p-3"></i>
@@ -62,7 +62,7 @@
                     <div class="col-md-3">
                         <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
-                                <h3 class="fs-2">4920</h3>
+                                <h3 class="fs-2">{{orders}}</h3>
                                 <p class="fs-5">Sales</p>
                             </div>
                             <i
@@ -193,6 +193,89 @@
         toggleButton.onclick = function () {
             el.classList.toggle("toggled");
         };
-    </script>
+    </script> 
+
+    <!-- Your Seller Account Starts -->
+  {% comment %} <div class="container mt-5">
+    <h2>Your Seller Account</h2>
+    <!-- Seller Account Panel Starts -->
+    <div class="row">
+      <div class="col-md-4">
+        <a href="your_orders.html" class="btn w-100">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title">
+                <i class="fas fa-2x fa-truck"></i>
+                <span class="h4">Delivery</span>
+              </div>
+              <small class="text-muted">Track orders placed by users.</small>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-md-4">
+        <a href="{% url 'addshow'%}" class="btn w-100">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title">
+                <i class="fas fa-2x fa-cart-plus"></i>
+                <span class="h4">Add New Product</span>
+              </div>
+              <small class="text-muted">Create a new product to sell.</small>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-md-4">
+        <a href="{% url 'Category' %}" class="btn w-100">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title">
+                <i class="fas fa-2x fa-user-edit"></i>
+                <span class="h4">Upload Category</span>
+              </div>
+              <small class="text-muted">Uploado your Category.</small>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div> <!-- Seller Account Panel Starts -->
+
+    <div class="row">
+      <div class="col-md-4">
+        <a href="seller_account_intro.html" class="btn w-100">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title">
+                <i class="fas fa-2x fa-list-ol"></i>
+                <span class="h4">Product List</span>
+              </div>
+              <small class="text-muted">Check your all products</small>
+            <strong>{{products}}</strong>
+            <strong>{{orders}}</strong>
+         
+            </div>
+          </div>
+        </a>
+      </div>
+
+
+      <div class="col-md-4">
+        <a href="seller_account_intro.html" class="btn w-100">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title">
+                <i class="fas fa-2x fa-store-alt-slash"></i>
+                <span class="h4">Close Account</span>
+              </div>
+              <small class="text-muted">Facing losses ? Then close your account.</small>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div> <!-- Your Seller Account Ends --> {% endcomment %}
 
 {% endblock content %}

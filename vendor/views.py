@@ -15,9 +15,11 @@ from .forms import  productaddForm
 from django.contrib.auth import login,logout,authenticate
 from app.models import Product
 from app.models import Category
+from app.models import Order
 from django.shortcuts import redirect
 from .forms import *
 from django.contrib.auth.decorators import login_required
+from .models import Vendor
 # Create your views here.
 
 def creatingOTP():
@@ -61,6 +63,7 @@ def login_function(request):
         if request.method == 'POST':
             form = LoginForm(request=request,data=request.POST)
             if form.is_valid():
+                
                 username = form.cleaned_data['username']
                 password = form.cleaned_data['password']
                 usr = authenticate(username=username,password = password)
@@ -98,6 +101,7 @@ def verifyUser(request):
                     user.first_name = first_name
                     user.last_name = last_name
                     user.save()
+                   
                     data.delete()
                     messages.success(request,'Account is created successfully!')
                     return HttpResponseRedirect('/verify/')   
@@ -122,22 +126,37 @@ def logout_function(request):
 
 
 def success(request):
-    #  if request.method == 'POST':
+    # vendor = request.PreRegistration.vendor
+    # Product = vendor.Product.all()
+    # Order = vendor.Order.all()
+    # for order in Order:
+    #     Order.vendor_amount = 0
+    #     Order.vendor_paid_amount = 0
+    #     Order.fully_paid = True
 
-    #     fm = productaddForm(request.POST, request.FILES)
-    #     if fm.is_valid():
-    #      fm.save()
-    #     else:
-    #         fm = productaddForm()
-    #     ecom = Product.objects.all()
-        return render(request,'app/vendor/success.html')
+    #     for item in Order.items.all():
+    #         if item.vendor == request.PreRegistration.vendor:
+    #             if item.vendor_paid:
+    #                 order.vendor_paid_amount += item.get_total_price()
+    #             else:
+    #                 order.vendor_amount += item.get_total_price()
+    #                 order.fully_paid = False
+    # , {'vendor': vendor, 'products': Product, 'orders': Order}
+       product = Product.objects.all()
+       
+       product = product.count()
+       order = Order.objects.all()
+       order = order.count()
+      
+       return render(request,'app/vendor/success.html', {'products':product, 'orders':order})
 
+
+    
 
 
 @login_required
 def addshow(request):
     if request.method == 'POST':
-
         fm = productaddForm(request.POST, request.FILES)
         if fm.is_valid():
              

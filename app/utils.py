@@ -1,5 +1,8 @@
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 import six
+# from django.conf import settings
+# from django.core.mail import EmailMultiAlternatives
+# from .models import Order, Customer
 
 
 class MyPasswordResetTokenGenerator(PasswordResetTokenGenerator):

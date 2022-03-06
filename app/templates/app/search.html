@@ -17,7 +17,7 @@
                     <h4><a href="{% url 'product-detail' result.id %}">{{result.title}}</a></h4>
                     <p>{{result.description|truncatewords:50}}</p>
                     <p>Return Policy: {{result.return_policy}}</p>
-                    <a href="{% url 'product-detail' result.id %}" class="btn btn-primary">Back to Home </a>
+                    <a href="{% url 'product-detail' result.id %}" class="btn btn-primary">Detail</a>
                 </div>
             </div>
             {% endfor %}
