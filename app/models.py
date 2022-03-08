@@ -1,11 +1,20 @@
 from statistics import mode
 from tkinter import CASCADE
+from turtle import ondrag
 from venv import create
 from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
 
+class Admin(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=50)
+    image = models.ImageField(upload_to="admins")
+    mobile = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.user.username
 
 
 class Customer(models.Model):
@@ -38,8 +47,9 @@ class Product(models.Model):
     warranty = models.CharField(max_length=300, null=True, blank=True)
     return_policy = models.CharField(max_length=300, null=True, blank=True)
     view_count = models.PositiveIntegerField(default=0)
-    
-
+    user = models.CharField(max_length=20, blank=True, null= True)
+    Vendor_name = models.CharField(max_length=40,blank=True, null= True )
+   
     def __str__(self):
         return self.title
 
@@ -67,7 +77,7 @@ class CartProduct(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     rate = models.PositiveIntegerField()
     quantity = models.PositiveIntegerField()
-    subtotal = models.PositiveIntegerField()
+    subtotal = models.PositiveIntegerField(blank=True,null=True)
 
     def __str__(self):
         return "Cart: " + str(self.cart.id) + " CartProduct: " + str(self.id)
@@ -103,6 +113,7 @@ class Order(models.Model):
         max_length=20, choices=METHOD, default="Cash On Delivery")
     payment_completed = models.BooleanField(
         default=False, null=True, blank=True)
+   
 
     def __str__(self):
         return "Order: " + str(self.id)

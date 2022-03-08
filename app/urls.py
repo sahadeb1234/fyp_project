@@ -3,7 +3,6 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-
 from app.views import AddToCartView
 from app.views import MyCartView
 from app.views import ManageCartView
@@ -19,6 +18,9 @@ from app.views import    SearchView
 from app.views import   KhaltiRequestView
 from app.views import   KhaltiVerifyView 
 from app.views import   CustomerOrderDetailView
+from app.views import AdminLoginView  
+from app.views import  AdminHomeView
+from app.views import AdminOrderDetailView  
 
 
 
@@ -46,6 +48,15 @@ urlpatterns = [
     path('grow-your-business/', views.vendor, name='grow-your-business'),
     path("profile/order-<int:pk>/", CustomerOrderDetailView.as_view(),
          name="customerorderdetail"),
+    path("admin-login/", AdminLoginView.as_view(), name="adminlogin"),
+    path('success/',views.success,name="success"),
+    path("admin-home/", AdminHomeView.as_view(), name="adminhome"),
+    path("admin-order/<int:pk>/", AdminOrderDetailView.as_view(),
+         name="adminorderdetail"),
+     
+
+
+
 
     
 

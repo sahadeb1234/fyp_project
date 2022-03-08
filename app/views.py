@@ -22,8 +22,10 @@ from .forms import *
 import requests
 from django.http import JsonResponse
 from Shopmandus.settings import EMAIL_HOST_USER
+from vendor.forms import productaddForm
 
 from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -57,7 +59,7 @@ class ProductView(View):
              product = Product.objects.filter(category=categoryID)
         else:
              product = Product.objects.all()
-             paginator = Paginator(product,15)
+             paginator = Paginator(product,6)
              page_number = self.request.GET.get('page')
              product = paginator.get_page(page_number)
 
@@ -287,7 +289,7 @@ class CustomerRegistrationView(CreateView):
         form.instance.user = user   
         login(self.request, user)
         subject = "welcome to Shopmandu"
-        message = f"Hi {user.username}, Thank you for regustering in shopmandu."
+        message = f"Hi {user.username}, Thank you for Register in shopmandu."
         email_form = settings.EMAIL_HOST_USER
         recipient_list = [user.email,]
         send_mail(subject,message,email_form,recipient_list)
@@ -437,3 +439,58 @@ class CustomerOrderDetailView(DetailView):
         else:
             return redirect("/login/?next=/profile/")
         return super().dispatch(request, *args, **kwargs)
+
+class AdminLoginView(FormView):
+    template_name = "app/vendor/login.html"
+    form_class = CustomerLoginForm
+    success_url = reverse_lazy("success")
+
+    def form_valid(self, form):
+        uname = form.cleaned_data.get("username")
+        pword = form.cleaned_data["password"]
+        usr = authenticate(username=uname, password=pword)
+        if usr is not None and Admin.objects.filter(user=usr).exists():
+            login(self.request, usr)
+        else:
+            return render(self.request, self.template_name, {"form": self.form_class, "error": "Invalid credentials"})
+        return super().form_valid(form)
+        
+class AdminRequiredMixin(object):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and Admin.objects.filter(user=request.user).exists():
+            pass
+        else:
+            return redirect("/admin-login/")
+        return super().dispatch(request, *args, **kwargs)
+
+class AdminHomeView(AdminRequiredMixin, TemplateView):
+    template_name = "app/vendor/Order.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["pendingorders"] = Order.objects.filter(
+            order_status="Order Received").order_by("-id")
+        return context
+
+class AdminOrderDetailView(AdminRequiredMixin, DetailView):
+    template_name = "app/vendor/adminorderdetail.html"
+    model = Order
+    context_object_name = "ord_obj"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["allstatus"] = ORDER_STATUS
+        return context
+
+
+
+
+
+
+@login_required
+def success(request):
+   
+            product = Product.objects.filter(user=request.user)
+            count = len(product)
+            order = Order.objects.all()
+            order = order.count()
+            return render(request,'app/vendor/success.html', {'products':product, 'count':count,'orders':order})
