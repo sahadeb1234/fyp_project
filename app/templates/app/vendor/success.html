@@ -7,7 +7,7 @@
         <!-- Sidebar -->
         <div class="bg-secondary text-white" id="sidebar-wrapper">
             <div class="sidebar-heading text-center py-4   fs-4 fw-bold text-uppercase border-bottom"><i
-                    class="fas fa-user-secret me-2"></i>Codersbite</div>
+                    class="fas fa-user-secret me-2"></i>Shopmandu</div>
             <div class="list-group list-group-flush my-3">
                 <a href="#" class="list-group-item list-group-item-action bg-transparent bg-secondary text-white active"><i
                         class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
@@ -42,7 +42,7 @@
                         <li class="nav-item dropdown">
                             <a class="" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i>John Doe
+                                <i class="fas fa-user me-2"></i>{{request.user}}
                             </a>
                            
                         </li>
@@ -99,21 +99,32 @@
                     <div class="col">
                         <table class="table bg-white rounded shadow-sm  table-hover">
                             <thead>
+                           
                                 <tr>
-                                    <th scope="col" width="50">#</th>
-                                    <th scope="col">Order Id</th>
-                                    <th scope="col">Customer</th>
-                                    <th scope="col">Ordered On</th>
-                                    <th scope="col">Ammount</th>
+                                    <th scope="col" width="50">SN</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">View Count</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                                    <tbody>
+                              {% for pr  in products %}
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>Television</td>
-                                    <td>Jonny</td>
-                                    <td>$1200</td>
+                                    <th scope="row">{{pr.id}}</th>
+                                    <td>{{pr.title}}</td>
+                                    <td>Rs.{{pr.selling_price}}</td>
+                                    <td>{{pr.view_count }}</td>
+                                    <td>
+                                      <a href="{%url 'update' pr.id %}" class="btn btn-warning btn-sm">Edit</a>
+                                     <form action="{% url 'deletedata' pr.id %}" method="post" class="d-inline">
+                                       {% csrf_token %}
+                                       <input type="submit" class="btn btn-danger btn-sm" value="Delete">                                      
+                                     </form>
+                                    </td>
                                 </tr>
+
+                                {% endfor %}
                                 
                             </tbody>
                         </table>

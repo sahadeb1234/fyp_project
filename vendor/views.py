@@ -75,6 +75,8 @@ def addshow(request):
    
     return render(request, 'app/vendor/add.html', {'form':fm})
 
+    
+
 @login_required
 def Categ(request):
      if request.method == 'POST':

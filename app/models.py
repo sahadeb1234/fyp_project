@@ -113,6 +113,7 @@ class Order(models.Model):
         max_length=20, choices=METHOD, default="Cash On Delivery")
     payment_completed = models.BooleanField(
         default=False, null=True, blank=True)
+    seller = models.CharField(max_length=100,null=True,blank=True)
    
 
     def __str__(self):

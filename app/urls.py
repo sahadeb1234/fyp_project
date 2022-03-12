@@ -53,6 +53,10 @@ urlpatterns = [
     path("admin-home/", AdminHomeView.as_view(), name="adminhome"),
     path("admin-order/<int:pk>/", AdminOrderDetailView.as_view(),
          name="adminorderdetail"),
+    path('delete/<int:id>/', views.delete_data, name="deletedata"),
+    path('<int:id>/', views.update_data, name="updatedata")
+
+   
      
 
 

@@ -7,14 +7,14 @@
     }
 </style>
 <div class="container">
-    <div class="row">
+    <div class="row my-4">
         <div class="col-md-6 mx-auto">
-            <h3>Admin Login Form</h3>
+            <h3>Vendor Login Form</h3>
             <hr>
             <form action="" method="POST">
                 {% csrf_token %}
                 {{form.as_p}}
-                <button class="btn btn-primary">Login as a Admin</button>
+                <button class="btn btn-primary">Login as a Vendor</button>
                 {% if error %}
                 <li style="color: red;">{{error}}</li>
                 {% endif %}

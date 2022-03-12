@@ -71,7 +71,8 @@ class ProductView(View):
 class ProductDetailView(EcomMixin,View):
     def get(self, request, pk):
         product = Product.objects.get(pk=pk)
-       
+        product.view_count +=1
+        product.save()
         return render(request, 'app/productdetail.html', {'product':product})
 
 
@@ -488,9 +489,54 @@ class AdminOrderDetailView(AdminRequiredMixin, DetailView):
 
 @login_required
 def success(request):
-   
+    
             product = Product.objects.filter(user=request.user)
             count = len(product)
-            order = Order.objects.all()
+            order = Order.objects.filter()
             order = order.count()
             return render(request,'app/vendor/success.html', {'products':product, 'count':count,'orders':order})
+
+
+def delete_data(request, id):
+    if request.method =='POST':
+        pi = Product.objects.get(pk=id)
+        pi.delete()
+        return HttpResponseRedirect('/success/')
+
+
+# def update_data(request, id):
+#     if request.method == 'POST':
+#         pi = Product.objects.get(pk=id)
+#         fm = productaddForm(request.POST, instance=pi)
+#         if fm.is_valid():
+#             fm.save()
+#         else:
+#          pi = Product.objects.get(pk=id)
+#          fm = productaddForm(instance=pi)
+#     return render(request,'app/vendor/update.html',{'form':fm})
+
+
+def  update_data(request, id):
+    if request.method == 'POST':
+        pi = Product.objects.get(pk=id)
+        fm = productaddForm(request.POST, instance=pi)
+        if fm.is_valid():
+         fm.save()
+    else:
+        pi = Product.objects.get(pk=id)
+        fm = productaddForm(instance=pi)
+    return render(request, 'app/vendor/update.html', {'form':fm})
+
+
+
+#         @login_required
+# def success(request):
+    
+#             product = Product.objects.filter(user=request.user)
+#             count = len(product)
+#             # order = request.GET.get('cart')
+
+#             # order = Order.objects.get(ordered_by=order)
+
+#             # order = order.count()
+#             return render(request,'app/vendor/success.html', {'products':product, 'count':count,'orders':order})
