@@ -59,7 +59,7 @@ class ProductView(View):
              product = Product.objects.filter(category=categoryID)
         else:
              product = Product.objects.all()
-             paginator = Paginator(product,6)
+             paginator = Paginator(product,12)
              page_number = self.request.GET.get('page')
              product = paginator.get_page(page_number)
 
@@ -239,7 +239,7 @@ class KhaltiVerifyView(View):
             "amount": amount
         }
         headers = {
-            "Authorization": "Key test_secret_key_f59e8b7d18b4499ca40f68195a846e9b"
+            "Authorization": "test_secret_key_876e15ef7ce44e42bf5cbd7bb39f22f5"
         }
 
         order_obj = Order.objects.get(id=o_id)
@@ -492,8 +492,11 @@ def success(request):
     
             product = Product.objects.filter(user=request.user)
             count = len(product)
-            order = Order.objects.filter()
+            order = Order.objects.filter(seller=str(request.user)).values()
+          
             order = order.count()
+           
+            
             return render(request,'app/vendor/success.html', {'products':product, 'count':count,'orders':order})
 
 
@@ -516,15 +519,15 @@ def delete_data(request, id):
 #     return render(request,'app/vendor/update.html',{'form':fm})
 
 
-def  update_data(request, id):
+def  updatedata(request, id):
     if request.method == 'POST':
-        pi = Product.objects.get(pk=id)
-        fm = productaddForm(request.POST, instance=pi)
+        pis = Product.objects.get(pk=id)
+        fm = productaddForm(request.POST, instance=pis)
         if fm.is_valid():
          fm.save()
     else:
-        pi = Product.objects.get(pk=id)
-        fm = productaddForm(instance=pi)
+        pis = Product.objects.get(pk=id)
+        fm = productaddForm(instance=pis)
     return render(request, 'app/vendor/update.html', {'form':fm})
 
 

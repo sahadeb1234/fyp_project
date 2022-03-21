@@ -33,8 +33,8 @@
                 <th scope="row">{{st.id}}</th>
                 <td>{{st.title}}</td>
                 <td>
-                    <a href=" {% url 'update' st.id %}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{% url 'delete' st.id %}" method="post" class="d-inline">
+                    <a href=" {% url 'updatecat' st.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{% url 'deletecat' st.id %}" method="post" class="d-inline">
                         {% csrf_token %}
                         <input type="submit" class="btn btn-danger" value="Delete">
                          

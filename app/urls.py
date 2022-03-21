@@ -54,7 +54,7 @@ urlpatterns = [
     path("admin-order/<int:pk>/", AdminOrderDetailView.as_view(),
          name="adminorderdetail"),
     path('delete/<int:id>/', views.delete_data, name="deletedata"),
-    path('<int:id>/', views.update_data, name="updatedata")
+    path('<int:id>/', views.updatedata, name="updatedata")
 
    
      

@@ -16,7 +16,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
-def success(request):
+# def success(request):
     # vendor = request.PreRegistration.vendor
     # Product = vendor.Product.all()
     # Order = vendor.Order.all()
@@ -33,15 +33,15 @@ def success(request):
     #                 order.vendor_amount += item.get_total_price()
     #                 order.fully_paid = False
     # , {'vendor': vendor, 'products': Product, 'orders': Order}
-       product = Product.objects.filter(user=request.user)
+    #    product = Product.objects.filter(user=request.user)
        
        
-       count = len(product)
+    #    count = len(product)
     
-       order = Order.objects.all()
-       order = order.count()
-       print(product)
-       return render(request,'app/vendor/success.html', {'products':product, 'count':count,'orders':order})
+    #    order = Order.objects.all()
+    #    order = order.count()
+    #    print(product)
+    #    return render(request,'app/vendor/success.html', {'products':product, 'count':count,'orders':order})
 
 
     

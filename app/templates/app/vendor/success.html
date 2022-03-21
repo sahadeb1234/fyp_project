@@ -5,19 +5,19 @@
 
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
-        <div class="bg-secondary text-white" id="sidebar-wrapper">
-            <div class="sidebar-heading text-center py-4   fs-4 fw-bold text-uppercase border-bottom"><i
-                    class="fas fa-user-secret me-2"></i>Shopmandu</div>
+        <div class="bg-success text-white" id="sidebar-wrapper">
+          <div class="sidebar-heading text-center py-4 fs-4 fw-bold text-uppercase border-bottom"> <i
+                    class="fas fa-user-secret me-2"></i> Shopmandu </div>
             <div class="list-group list-group-flush my-3">
-                <a href="#" class="list-group-item list-group-item-action bg-transparent bg-secondary text-white active"><i
+                <a href="{% url 'success'%}" class="list-group-item list-group-item-action bg-transparent bg-secondary text-white active"><i
                         class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
                 <a href="{% url 'addshow'%}" class="list-group-item list-group-item-action bg-transparent bg-secondary text-white fw-bold"><i
-                        class=""></i>Products</a>
+                  class="fas fa-cloud-upload-alt me-2"></i>Products</a>
                 
                 <a href="{% url 'Category' %}" class="list-group-item list-group-item-action bg-transparent bg-secondary text-white fw-bold"><i
-                        class=""></i>Category</a>
+                        class="fa fa-arrow-circle-up me-2"></i>Category</a>
                <a href="{% url 'adminhome' %}" class="list-group-item list-group-item-action bg-transparent bg-secondary text-white fw-bold"><i
-                          class=""></i>Order</a>
+                          class="fa fa-shopping-cart me-2"></i>Order</a>
              
             </div>
         </div>
@@ -30,7 +30,7 @@
                     <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
                     <h2 class="fs-2 m-0">Dashboard</h2>
                 </div>
-
+   
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -40,10 +40,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="" href="#" id="navbarDropdown"
+                            <a class="" href="" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user me-2"></i>{{request.user}}
                             </a>
+                          
+
+                          
                            
                         </li>
                     </ul>
@@ -76,7 +79,7 @@
                     <div class="col-md-3">
                         <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
-                                <h3 class="fs-2">3899</h3>
+                                <h3 class="fs-2">1</h3>
                                 <p class="fs-5">Delivery</p>
                             </div>
                             <i class="fas fa-truck fs-1 primary-text border rounded-full secondary-bg p-3"></i>
@@ -86,7 +89,7 @@
                     <div class="col-md-3">
                         <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
-                                <h3 class="fs-2">%25</h3>
+                                <h3 class="fs-2">%2</h3>
                                 <p class="fs-5">Increase</p>
                             </div>
                             <i class="fas fa-chart-line fs-1 primary-text border rounded-full secondary-bg p-3"></i>
@@ -116,7 +119,7 @@
                                     <td>Rs.{{pr.selling_price}}</td>
                                     <td>{{pr.view_count }}</td>
                                     <td>
-                                      <a href="{%url 'update' pr.id %}" class="btn btn-warning btn-sm">Edit</a>
+                                      <a href="{%url 'updatedata' pr.id %}" class="btn btn-info btn-sm">Edit</a>
                                      <form action="{% url 'deletedata' pr.id %}" method="post" class="d-inline">
                                        {% csrf_token %}
                                        <input type="submit" class="btn btn-danger btn-sm" value="Delete">                                      
@@ -130,12 +133,17 @@
                         </table>
                     </div>
                 </div>
-
+ 
             </div>
         </div>
     </div>
     <!-- /#page-content-wrapper -->
-    </div>
+
+    
+ 
+
+
+
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
@@ -144,6 +152,8 @@
             el.classList.toggle("toggled");
         };
     </script> 
+
+    
 
     <!-- Your Seller Account Starts -->
   {% comment %} <div class="container mt-5">
@@ -227,5 +237,7 @@
       </div>
     </div>
   </div> <!-- Your Seller Account Ends --> {% endcomment %}
+
+
 
 {% endblock content %}
