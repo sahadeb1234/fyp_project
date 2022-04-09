@@ -1,3 +1,5 @@
+
+from urllib import request
 from django import views
 from django.shortcuts import render
 from django.views import View
@@ -131,6 +133,7 @@ class MyCartView(EcomMixin,TemplateView):
         else:
             cart = None
         context['cart'] = cart
+
         return context
 
 class ManageCartView(EcomMixin,View):
@@ -216,6 +219,9 @@ class CheckoutView( SuccessMessageMixin,CreateView):
             form.instance.discount = 0
             form.instance.total = cart_obj.total
             form.instance.order_status = "Order Received"
+            # form.instance.seller = request.user
+            # form.instance.seller = self.request.user
+            
             del self.request.session['cart_id']
             pm = form.cleaned_data.get("payment_method")
             order = form.save()
@@ -492,12 +498,14 @@ def success(request):
     
             product = Product.objects.filter(user=request.user)
             count = len(product)
-            order = Order.objects.filter(seller=str(request.user)).values()
-          
+            order = Order.objects.filter()  
             order = order.count()
+
+            category = Category.objects.all()
+          
            
             
-            return render(request,'app/vendor/success.html', {'products':product, 'count':count,'orders':order})
+            return render(request,'app/vendor/success.html', {'products':product, 'count':count,'orders':order, 'category':category})
 
 
 def delete_data(request, id):
@@ -543,3 +551,44 @@ def  updatedata(request, id):
 
 #             # order = order.count()
 #             return render(request,'app/vendor/success.html', {'products':product, 'count':count,'orders':order})
+
+
+class AdminOrderStatuChangeView(AdminRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        order_id = self.kwargs["pk"]
+        order_obj = Order.objects.get(id=order_id)
+        new_status = request.POST.get("status")
+        order_obj.order_status = new_status
+        order_obj.save()
+        return redirect(reverse_lazy("adminorderdetail", kwargs={"pk": order_id}))
+
+def add_wishlist(request):
+	pid=request.GET['product']
+	product=Product.objects.get(pk=pid)
+	data={}
+	checkw=Wishlist.objects.filter(product=product,user=request.user).count()
+	if checkw > 0:
+		data={
+			'bool':False
+		}
+	else:
+		wishlist=Wishlist.objects.create(
+			product=product,
+			user=request.user
+		)
+		data={
+			'bool':True
+		}
+	return JsonResponse(data)
+
+
+def my_wishlist(request):
+	wlist=Wishlist.objects.filter(user=request.user)
+	return render(request, 'app/wishlist.html',{'wlist':wlist})
+
+
+def delete_wishlist(request, id):
+    if request.method =='POST':
+        Pii = Wishlist.objects.get(pk=id)
+        Pii.delete()
+        return HttpResponseRedirect('/wishlist/')

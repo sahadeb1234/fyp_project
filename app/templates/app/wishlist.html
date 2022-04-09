@@ -1,0 +1,88 @@
+{% extends 'app/bases.html' %}
+{% load static %}
+{% block title %}{{product.description}}{% endblock title %}
+
+{% block main-contents %}
+
+{% comment %} 
+<main class="container my-4">
+	<!-- Featured Products -->
+	<h3 class="my-4 border-bottom pb-1">Wishlist Items</h3>
+	<div class="row">
+		<div class="col-md-3">
+		
+		</div>
+		<div class="col-md-9">
+			<div class="table-responsive">
+				<table class="table-bordered table">
+					<thead>
+						<tr>
+							<th>Title</th>
+							<th>Image</th>
+							<th>Price</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for wl in wlist %}
+						<tr>
+							<td><a href="#">{{wl.product.title}}</a></td>
+							<td>
+								<img width="100" src="#" alt="">
+							</td>
+							<td>{{wl.selling_price}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</main> {% endcomment %}
+
+
+<div class="container">
+    <div class="row my-5">
+        <div class="col-md-8">
+            <h3>All Wishlist</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>Wishlist</th>
+                        <th>Title</th>
+                        <th>Ammount</th>
+						<th>Action</th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for wl in wlist %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td><a href="#">#WishList_{{wl.id}}</a></td>
+                        <td>{{wl.product.title}}</td>
+                        <td>{{wl.product.selling_price}}</td>
+						<td>
+							<form action="{% url 'deletewishlist' wl.id %}" method="post" class="d-inline">
+								{% csrf_token %}
+								<input type="submit" class="btn btn-danger" value="Remove">
+								 
+							</form>
+						</td>
+
+						
+                        
+            
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock main-contents %}

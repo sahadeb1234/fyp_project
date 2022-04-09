@@ -4,6 +4,7 @@ from turtle import ondrag
 from venv import create
 from django.db import models
 from django.contrib.auth.models import User
+from matplotlib.style import use
 
 # Create your models here.
 
@@ -121,3 +122,8 @@ class Order(models.Model):
 
 
 
+class Wishlist(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+      
+    

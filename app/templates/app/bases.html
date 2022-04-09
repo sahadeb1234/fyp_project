@@ -31,8 +31,12 @@
 
     <!-- Optional Plugins-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
+  
     <title> {% block title %}Multi Vendor E-Commerce Website{% endblock title %} </title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    
+ 
+
   </head>
   <body>
      <header class="header clearfix">
@@ -93,25 +97,42 @@
                                 </div>
                             </div>
                         </form>
+
                     </div>
                     <div class="col-lg-2 col-12 col-sm-6">
                         <div class="right-icons pull-right d-none d-lg-block">
                          {% if request.user.is_authenticated %}
-                           
-
-
                             <div class="single-icon shopping-cart">
                                 <a href="{% url 'mycart' %}"><i class="fa fa-shopping-cart fa-2x"></i></a>
-                                <span class="badge badge-default"></span>
+                                <span  class="badge badge-default">{{request.session.cart.keys|length}}</span>
                             </div>
                                  {% else %}
-                             <div class="single-icon wishlist">
 
-                              
-                                <a href="#"><i class="fa fa-heart-o fa-2x"></i></a>
+                                 <div class="single-icon shopping-cart">
+                                    <a href="{% url 'customerlogin'%}"><i class="fa fa-shopping-cart fa-2x"></i></a>
+                                    <span  class="badge badge-default">{{request.session.cart.keys|length}}</span>
+                                </div>
+
+                                 
+                            
+                              {%endif%}
+
+
+                              {% if request.user.is_authenticated %}
+
+
+                              <div class="single-icon wishlist">
+                                <a href="{%url 'my_wishlist'%}"><i class="fa fa-heart-o fa-2x"></i></a>
                                 <span class="badge badge-default"></span>
                             </div> 
-                              {%endif%}
+                            {% else %}
+                            <div class="single-icon wishlist">
+                                <a href="{% url 'customerlogin'%}"><i class="fa fa-heart-o fa-2x"></i></a>
+                                <span class="badge badge-default">  </span>
+                            </div> 
+
+                            {%endif%}
+
                         </div>
                     </div>
                 </div>
@@ -226,10 +247,25 @@
 
     {% endblock main-contentss %}
 
-   
+    <script>
+        var updateBtns = document.getElementsByClassName('update-cart')
+        for(i = 0; i < updateBtns.length; i++){
+            updateBtns[i].addEventListener('click', function(){
+                var productId = this.dataset.product
+                var action = this.dataset.action
+                console.log('productId:', productId, 'action:', action)
+            })
+        }
+        
+       </script>
+
+      
      <!-- Core -->
+     <script type="text/javascript" src="{%static 'app/js/Cart.js'%}"></script>
+    {% comment %} <script src="{%static 'app/js/Cart.js'%}"></script> {% endcomment %}
     <script src="{%static 'app/js/core/jquery.min.js'%}"></script>
     <script src="{%static 'app/js/core/script.js'%}"></script>
+ 
 
     <script src="{%static 'app/js/core/popper.min.js'%}"></script>
     <script src="{%static 'app/js/core/bootstrap.min.js'%}"></script>
@@ -243,6 +279,7 @@
 
     <!-- Main JS-->
     <script src="./assets/js/main.js"></script>
+
   </body>
 </html>
 

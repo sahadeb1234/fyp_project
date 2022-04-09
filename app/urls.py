@@ -1,9 +1,11 @@
 
+from unicodedata import name
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from sklearn import naive_bayes
 from . import views
-from app.views import AddToCartView
+from app.views import AddToCartView, my_wishlist
 from app.views import MyCartView
 from app.views import ManageCartView
 from app.views import EmptyCartView
@@ -20,7 +22,11 @@ from app.views import   KhaltiVerifyView
 from app.views import   CustomerOrderDetailView
 from app.views import AdminLoginView  
 from app.views import  AdminHomeView
-from app.views import AdminOrderDetailView  
+from app.views import AdminOrderDetailView 
+from app.views import  AdminOrderStatuChangeView    
+
+
+
 
 
 
@@ -54,7 +60,18 @@ urlpatterns = [
     path("admin-order/<int:pk>/", AdminOrderDetailView.as_view(),
          name="adminorderdetail"),
     path('delete/<int:id>/', views.delete_data, name="deletedata"),
-    path('<int:id>/', views.updatedata, name="updatedata")
+    path('<int:id>/', views.updatedata, name="updatedata"),
+    path('my-wishlist',views.my_wishlist, name='my_wishlist'),
+    path("admin-order-<int:pk>-change/",
+         AdminOrderStatuChangeView.as_view(), name="adminorderstatuschange"),
+   path('add-wishlist',views.add_wishlist, name='add_wishlist'),
+   path('deletewishlist/<int:id>/', views.delete_wishlist, name="deletewishlist"),
+   
+
+
+
+   
+
 
    
      

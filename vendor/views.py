@@ -1,5 +1,7 @@
 
+from tempfile import mktemp
 from unicodedata import category
+from django import views
 from django.contrib import messages
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -11,6 +13,9 @@ from app.models import Category
 from app.models import Order
 from django.shortcuts import redirect
 from .forms import *
+from .models import Resume
+from .forms import ResumeForm
+from django.views import View
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -109,7 +114,82 @@ def update(request, id):
 
         
  
+# @login_required
+# def image(request):
+#     if request.method == 'POST':
+#         print(request.user)
+#         fm = PdForm(request.POST, request.FILES) 
 
+#         if fm.is_valid():
              
+#          te =fm.cleaned_data['product']
+#          sg =fm.cleaned_data['image']
+         
+#          reg = Product(product=te,image=sg,user=request.user.username)
+#          reg.save()
+#     else:
+#         fm = productaddForm()
+#         # ecom = Product.objects.all()
+   
+#     return render(request, 'app/vendor/add.html', {'form':fm})
+             
+
+
+# class HomeView(View):
+#     def get(self, request):
+#         form = ResumeForm()
+#         return render(request, 'app/vendor/resume.html', {'form':form})
+
+
+
+# def post(self, request):
+#   form = ResumeForm(request.POST, request.FILES)
+#   if form.is_valid():
+#    form.save()
+#    return render(request,  'app/vendor/resume.html', {'form':form})
+
+# class CandidateView(View):
+#  def get(self, request, pk):
+#   candidate = Resume.objects.get(pk=pk)
+#   return render(request, 'app/vendor/candidate.html', {'candidate':candidate})
+
+
+
+# def adbus(request):
+#  if request.method == 'POST':
+#   fm = ResumeForm(request.POST, request.FILES)
+#   if fm.is_valid():
+#       fm.save()
+#   else:
+#       fm = ResumeForm()
+#       return render(request, 'app/vendor/resume.html', {'form':fm})
+        
+
+
+  
+def adbus(request):
+    if request.method == 'POST':
+        print(request.user)
+        fm = ResumeForm(request.POST, request.FILES) 
+
+        if fm.is_valid():
+             
+         te =fm.cleaned_data['companyName']
+         sg =fm.cleaned_data['company_register_number']
+         cy =fm.cleaned_data['state']
+         ie =fm.cleaned_data['address']
+         me =fm.cleaned_data['mobile']
+         mk =fm.cleaned_data['email']
+         sp =fm.cleaned_data['businesstype']
+         pf =fm.cleaned_data['profile_image']
+         de =fm.cleaned_data['company_register_document']
+         reg = Resume(companyName=te,company_register_number=sg,state=cy, address=ie,mobile=me, email=mk,businesstype=sp, profile_image=pf,company_register_document=de)
+         reg.save()
+    else:
+        fm = ResumeForm()
+        # ecom = Product.objects.all()
+   
+    return render(request, 'app/vendor/resume.html', {'form':fm})
+
 
 
