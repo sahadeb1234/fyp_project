@@ -5,7 +5,7 @@
 {% block main-contents %}
 
 	
-	 <section class="slider-section pt-4 pb-4">
+	 <section class="slider-section pt-2 pb-2">
         <div class="container">
             <div class="slider-inner">
                 <div class="row">
@@ -17,11 +17,24 @@
                                 {%for p in category  %}
                             <ul class="menu-category">
                                 <li><a href="/?category={{p.id}}">{{p.title }}</a></li>
-                                {%endfor%}
-                               
-                            </ul>
+                                {%endfor%}                               
+                            </ul>                   
                         </nav>
+
+                {% comment %} <nav class="nav-category my-2">
+                            <h2>Brand</h2>
+                                
+                            <ul class="menu-category">
+                                {% for i in brand %}
+                                <li><a href="/?brand={{i.id}}">{{i.title}}</a></li>
+                                {% endfor %}   
+                            </ul>
+                        </nav>   {% endcomment %}
+
                     </div>
+
+
+                  
                     <div class="col-md-9">
                         <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
                             <ol class="carousel-indicators">
@@ -104,43 +117,97 @@
 	    <section class="products-grids trending pb-4">
         <div class="container">
             <div class="row">
-                <div class="col-12">
+                <div class="col-8">
                     <div class="section-title">
                        
                     </div>
                 </div>
             </div>
 
-            <div class="row mt-4 ">     
-				{% for p in product %}
-                <div class="col-xl-3 col-lg-4 col-md-4 col-12  my-2">
-                    <div class="single-product">
-                        <div class="product-img">
-                            <a href="{% url 'product-detail' p.id %}">
-                                <img src="{{p.image.url}}" class="img-fluid" />
-                            </a>
-                        </div>
-                       
-                        <div class="product-content text-center">
-                            <h3 class=""><a href="{% url 'product-detail' p.id %}">{{p.title}}</a></h3>
-                            <div class="product-price">
+           
+
+         
+
+
+            <section class="sellerBanner">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="leftSiderbar">
+                                <nav class="nav-category my-2">
+                                    <h2>Brand</h2>
+                                        
+                                    <ul class="menu-category">
+                                        {% for i in brand %}
+                                        <li><a href="/?brand={{i.id}}">{{i.title}}</a></li>
+                                        {% endfor %}   
+                                    </ul>
+                                </nav> 
+
+
+                                <nav class="nav-category my-3">
+                                    <h2>Storage</h2>
+                                        
+                                    <ul class="menu-category">
+                                        {% for s in storage %}
+                                        <li><a href="/?storage={{s.id}}">{{s.title}}</a></li>
+                                        {% endfor %}   
+                                    </ul>
+                                </nav> 
+                               
                                 
-                                {% comment %} <span>Rs. {{p.selling_price }}</span> {% endcomment %}
-                                <P><strike> Rs. {{p.marked_price }}   </strike>   Rs. {{p.selling_price}}</P>
-                               
-                                <a href="{% url 'product-detail' p.id %}" class="btn btn-primary pull-center">Detail</a>
                                
                                
-                             
+                                
+                               
+                            </div>
+                           
+
+                        </div>
+
+                        <div class="col-md-10">
+                            <div class="row mt-4 ">     
+                                {% for p in product %}
+                                <div class="col-xl-3 col-lg-4 col-md-4 col-12  my-2">
+                                    <div class="single-product">
+                                        <div class="product-img">
+                                            <a href="{% url 'product-detail' p.id %}">
+                                                <img src="{{p.image.url}}" class="img-fluid" />
+                                            </a>
+                                        </div>
+                                       
+                                        <div class="product-content text-center">
+                                            <h3 class=""><a href="{% url 'product-detail' p.id %}">{{p.title}}</a></h3>
+                                            <div class="product-price">
+                                                
+                                                {% comment %} <span>Rs. {{p.selling_price }}</span> {% endcomment %}
+                                                <P><strike> Rs. {{p.marked_price }}   </strike>   Rs. {{p.selling_price}}</P>
+                                               
+                                                <a href="{% url 'product-detail' p.id %}" class="btn btn-primary pull-center">Detail</a>
+                                               
+                                               
+                                             
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                    {% endfor %}
                             
                             </div>
+                           
+
+
+                            
                         </div>
                     </div>
-                    
                 </div>
-                	{% endfor %}
-			
-            </div>
+
+            </section>
+
+
+    
             
 <div class="pagination my-4">
         {% if product.has_previous %}

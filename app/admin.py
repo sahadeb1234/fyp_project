@@ -9,4 +9,4 @@ admin.site.site_header = 'Shopmandu'
 
 
 admin.site.register(
-    [Admin,Customer, Category, Product, Cart, CartProduct, Order, ProductImage, Wishlist])
+    [Admin,Customer, Category, Product, Cart, CartProduct, Order, ProductImage, Wishlist, Brand, Storage])

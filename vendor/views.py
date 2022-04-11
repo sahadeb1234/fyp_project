@@ -63,6 +63,7 @@ def addshow(request):
          te =fm.cleaned_data['title']
          sg =fm.cleaned_data['slug']
          cy =fm.cleaned_data['category']
+         br =fm.cleaned_data['brand']
          ie =fm.cleaned_data['image']
          mk =fm.cleaned_data['marked_price']
          sp =fm.cleaned_data['selling_price']
@@ -72,7 +73,7 @@ def addshow(request):
          rp =fm.cleaned_data['return_policy']
          v =fm.cleaned_data['view_count']
          ve =fm.cleaned_data['Vendor_name']
-         reg = Product(title=te,slug=sg,category=cy, image=ie,marked_price=mk, selling_price=sp,description=de, full_description=fd,warranty=w,return_policy=rp,view_count=v, Vendor_name=ve,user=request.user.username)
+         reg = Product(title=te,slug=sg,category=cy, brand=br, image=ie,marked_price=mk, selling_price=sp,description=de, full_description=fd,warranty=w,return_policy=rp,view_count=v, Vendor_name=ve,user=request.user.username)
          reg.save()
     else:
         fm = productaddForm()

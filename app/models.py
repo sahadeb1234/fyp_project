@@ -36,10 +36,27 @@ class Category(models.Model):
         return self.title
 
 
+class Brand(models.Model):
+    title = models.CharField(max_length=200)
+   
+
+    def __str__(self):
+        return self.title
+
+class Storage(models.Model):
+    title = models.CharField(max_length=200)
+   
+
+    def __str__(self):
+        return self.title
+
+
 class Product(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE,null=True, blank=True)
+    storage = models.ForeignKey(Storage, on_delete=models.CASCADE,null=True, blank=True)
     image = models.ImageField(upload_to="products")
     marked_price = models.PositiveIntegerField()
     selling_price = models.PositiveIntegerField()

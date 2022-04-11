@@ -51,21 +51,30 @@ def vendor(request):
 
 class ProductView(View):
     def get(self, request):
-      
-        category = Category.objects.all()
+        brand = Brand.objects.all()
+        brandID= request.GET.get('brand') 
        
-        categoryID = request.GET.get('category')
-
-        
+        category = Category.objects.all()  
+        categoryID = request.GET.get('category')  
+        storage = Storage.objects.all() 
+        storageID = request.GET.get('storage')  
         if categoryID:
              product = Product.objects.filter(category=categoryID)
-        else:
-             product = Product.objects.all()
-             paginator = Paginator(product,12)
-             page_number = self.request.GET.get('page')
-             product = paginator.get_page(page_number)
+        elif brandID:
+               product = Product.objects.filter(brand=brandID)
+        # elif storageID:
+        #        product = Product.objects.filter(storage=storageID)
 
-        return render(request, 'app/index.html', {'product': product, 'category': category})
+        elif storageID:
+               product = Product.objects.filter(storage=storageID)
+
+        else:
+            product = Product.objects.all()
+            paginator = Paginator(product,12)
+            page_number = self.request.GET.get('page')
+            product = paginator.get_page(page_number)
+
+        return render(request, 'app/index.html', {'brand':brand,'product': product,'category':category, 'storage':storage})
         
 
 
@@ -591,4 +600,4 @@ def delete_wishlist(request, id):
     if request.method =='POST':
         Pii = Wishlist.objects.get(pk=id)
         Pii.delete()
-        return HttpResponseRedirect('/wishlist/')
+        return HttpResponseRedirect('/my_wishlist/')

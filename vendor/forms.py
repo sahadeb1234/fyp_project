@@ -10,7 +10,7 @@ from .models import Resume
 class productaddForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['title','slug', 'category', 'image', 'marked_price', 'selling_price', 'description', 'full_description', 'warranty', 'return_policy', 'view_count','Vendor_name']
+        fields = ['title','slug', 'category', 'brand', 'storage',  'image', 'marked_price', 'selling_price', 'description', 'full_description', 'warranty', 'return_policy', 'view_count','Vendor_name']
         widgets = {
             'title': forms.TextInput(attrs={'class':'form-control'}),
             'slug': forms.TextInput(attrs={'class':'form-control'}),
@@ -58,7 +58,6 @@ class ResumeForm(forms.ModelForm):
         fields = ['companyName', 'company_register_number', 'state', 'address', 'mobile','email', 'businesstype','profile_image', 'company_register_document']
         widgets = {
              'companyName':forms.TextInput(attrs={'class':'form-control'}),
-             'city':forms.TextInput(attrs={'class':'form-control'}),
              'company_register_number':forms.NumberInput(attrs={'class':'form-control'}),
              'state':forms.Select(attrs={'class':'form-select'}),
              'address':forms.TextInput(attrs={'class':'form-control'}),
